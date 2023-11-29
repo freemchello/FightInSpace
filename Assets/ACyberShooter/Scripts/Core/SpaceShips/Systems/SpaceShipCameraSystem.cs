@@ -26,6 +26,9 @@ namespace Core
  
             _ship = components.BaseObject.GetComponent<SpaceShipComponent>();
             _cameraLocked = 0;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
  

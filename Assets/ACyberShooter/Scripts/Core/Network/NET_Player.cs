@@ -1,50 +1,22 @@
 using Mirror;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class NET_Player : NetworkBehaviour
+public class NET_Player : MonoBehaviour
 {
+
+    public HashSet<string> ServerUsers = new();
      
-    public static List<AUTH_DATA> ServerData = new List<AUTH_DATA>();
-
-   // public static Dictionary<NetworkConnectionToClient, AUTH_DATA> Players = new();
-
     public static string LocalName;
     public static string LocalRoom;
 
-    //public static NET_Player LocalPlayer;
+    public static NET_Player SINGLETONE;
 
-
-    //private void Awake()
-    //{
-    //    LocalPlayer = this;
-    //}
+    private void Awake()
+    {
+        SINGLETONE = this;
+    }
  
-    //public static void CmdNewUserConnect(string roomID, NetworkConnectionToClient conn)
-    //{
-    //    LocalPlayer.CmdSendAboutNewUser(conn);
-    //}
-
-
-    //[Command] 
-    //private void CmdSendAboutNewUser(NetworkConnectionToClient conn)
-    //{
-    //    LocalPlayer.RpcSendAboutNewUser(conn);
-    //}
-
-
-    //[ClientRpc(includeOwner = true)]
-    //private void RpcSendAboutNewUser(NetworkConnectionToClient conn)
-    //{
-    //    if (!Players.ContainsKey(conn))
-    //    {
-
-    //        Players.Add(conn, (AUTH_DATA)conn.authenticationData);
-    //    }
-    //    else
-    //    {
-
-    //    }
-    //}
 }

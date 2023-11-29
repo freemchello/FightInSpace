@@ -3,6 +3,7 @@ using Core;
 using UnityEngine;
 using Mirror;
 using TMPro;
+using Networking;
 
 namespace Abstracts
 {
@@ -13,47 +14,29 @@ namespace Abstracts
         [SerializeField] private Camera _camera;
         [SerializeField] private List<GameObject> _noneLocalPlayerHiden = new();
         [SerializeField] private TMP_Text _nameText;
-
-        [SyncVar] private string _name;
+       
+        private string _name;
 
           
         private List<ISystem> _systems;
 
         protected abstract List<ISystem> GetSystems();
 
-        PlayerInput input;
-
-
-       [Command(requiresAuthority = false)]
+        
+        [Command(requiresAuthority = false)]
         private void CmdSetName(NetworkConnectionToClient conn)
         {
-            var auth = (AUTH_DATA) conn.authenticationData;
-            Debug.Log(auth.UserName);
-            _name = auth.UserName;
-            _nameText.text = auth.UserName;
-        }
-
-        //public override void OnStartClient()
-        //{
-        //    // base.OnStartClient();
-        //    if(!isLocalPlayer) return;
-        //    input = new PlayerInput();
-
-        //    input.Enable();
-        //    Init();
-        //    CmdSetName(connectionToClient);
              
-        //    _nameText.gameObject.SetActive(false);
-
-        //}
+            _nameText.text = _name;
+        }
+ 
         public override void OnStartLocalPlayer()
         {
-            // base.OnStartLocalPlayer();
-            input = new PlayerInput();
-
-            //    input.Enable();
+              
             Init();
+            _name = NET_MANAGER.SINGLETONE.USER_NAME;
             CmdSetName(connectionToClient);
+
             Debug.Log(_name);
 
             _nameText.gameObject.SetActive(false);
@@ -106,6 +89,7 @@ namespace Abstracts
                 //    return;
                 //}
                 _camera.gameObject.SetActive(false);
+               
                 _noneLocalPlayerHiden.ForEach(h => h.gameObject.SetActive(false));
 
 
@@ -113,12 +97,7 @@ namespace Abstracts
 
                 return;
             }
-            else
-            {
-                input.Enable();
-            }
-
-           
+             
         }
         
         
@@ -132,6 +111,13 @@ namespace Abstracts
                // _nameText.gameObject.transform.LookAt(this.gameObject.transform);
                 
                 return;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+               
+                NET_MANAGER.SINGLETONE.Disconect();
+
             }
 
             for (int i = 0; i < _systems.Count; i++)

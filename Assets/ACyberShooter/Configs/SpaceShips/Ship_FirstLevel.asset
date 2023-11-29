@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0490cefbc1415834a8540baee83d288f, type: 3}
   m_Name: Ship_FirstLevel
   m_EditorClassIdentifier: 
-  thrustAmount: 90
+  thrustAmount: 222
   thrustAmountSprint: 8
   thrustInput: 0
   yawSpeed: 2
   pitchSpeed: 1
-  rollSpeed: 0.5
-  steeringInput: {x: 0.017038155, y: 0, z: 0.0042127757}
+  rollSpeed: 2
+  steeringInput: {x: -0.112634175, y: 0, z: -0.01643418}
   leanAmount_X: 45
   leanAmount_Y: 25
   shootRate: 0.2
